@@ -48,5 +48,6 @@ class Object(sprite.Sprite):
     def update(self):
         self.animation_tick += 1
         if self.animation_tick >= self.animate_speed:
+            self.animation_tick = 0
             self.sprite_index = (self.sprite_index + 1) % len(self.sprites)
         self.display.blit(self.sprites[self.sprite_index], self.pos)
