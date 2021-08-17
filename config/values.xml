@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<values>
+    <!-- 
+        WARNING: Do not add sub elements beyond this 
+        the system will not read it.
+    -->
+    <intFrameRate>30</intFrameRate>
+</values>
