@@ -5,4 +5,6 @@
         the system will not read it.
     -->
     <intFrameRate>30</intFrameRate>
+    <intScreenWidth>480</intScreenWidth>
+    <intScreenHeight>640</intScreenHeight>
 </values>

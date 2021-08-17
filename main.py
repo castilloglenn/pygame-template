@@ -1,5 +1,6 @@
 import pygame
 from object import Object
+from pygame import sprite
 import xml.etree.ElementTree as xml
 import os, sys
 
@@ -29,7 +30,7 @@ class Game:
         # Pygame initialization process
         pygame.init()
         pygame.display.set_caption(f"{self.strings['gameTitle']} {self.strings['gameVersion']}")
-        pygame.display.set_mode((640, 480))
+        self.display = pygame.display.set_mode((self.values['intScreenWidth'], self.values['intScreenHeight']))
         self.clock = pygame.time.Clock()
 
         # Storing values that is needed for the game
@@ -37,15 +38,26 @@ class Game:
         self.pause_timeout = 0
         
         # Storing all the spritesheets of entities
+        self.spriteGroup = sprite.Group()
+
         # Parameters: name of the spritesheet, frame rate, 
         #   and speed (Ex. 1.0 means 1 change to the sprite's movement every second)
         #   meaning, < 1.0 is faster and > 1.0 is slower, calibrate this to match desired
-        self.ship = Object('Ship', self.values['intFrameRate'], 0.3)
+        #   and the pos (position (w, h)) of the object relative to the screen size
+        self.ship = Object('Ship', self.values['intFrameRate'], 0.3, self.display, 
+            (self.values['intScreenWidth'] // 2, self.values['intScreenHeight'] // 4 * 3))
+        self.spriteGroup.add(self.ship)
+
 
 
     def run_main(self):
         # Game loop
         while True:
+            # Background image must be written here
+            pygame.draw.rect(self.display, (0, 150, 0), 
+                (0, 0, self.values['intScreenWidth'], self.values['intScreenHeight']), 0)
+            self.spriteGroup.update()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: self.clear_resources()
                 if event.type == pygame.MOUSEBUTTONDOWN: self.mouse_click_events(event)
@@ -63,6 +75,8 @@ class Game:
                 self.pause_timeout = 0
                 pass
             else: self.key_events(keys)
+
+            self.refresh_display()
 
 
     def mouse_click_events(self, event):

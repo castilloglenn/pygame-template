@@ -3,12 +3,15 @@ from pygame import sprite
 import json
 
 class Object(sprite.Sprite):
-    def __init__(self, entity, fps, speed, pos):
+    def __init__(self, entity, fps, speed, display, pos):
+        super().__init__()
+
         # Basic information about an object
         self.name = entity
         self.filepath = f"assets/images/{entity}.png"
         self.sprite_sheet = pygame.image.load(self.filepath).convert()
         self.meta_data = self.filepath.replace('png', 'json')
+        self.display = display
         self.pos = pos
 
         with open(self.meta_data) as f: 
@@ -45,5 +48,5 @@ class Object(sprite.Sprite):
     def update(self):
         self.animation_tick += 1
         if self.animation_tick >= self.animate_speed:
-            self.sprite_index = (self.sprite_index + 1) % self.__len__
-        pygame.display.blit(self.sprites[self.sprite_index], self.pos)
+            self.sprite_index = (self.sprite_index + 1) % len(self.sprites)
+        self.display.blit(self.sprites[self.sprite_index], self.pos)
