@@ -37,7 +37,10 @@ class Game:
         self.pause_timeout = 0
         
         # Storing all the spritesheets of entities
-        self.ship = Object('Ship')
+        # Parameters: name of the spritesheet, frame rate, 
+        #   and speed (Ex. 1.0 means 1 change to the sprite's movement every second)
+        #   meaning, < 1.0 is faster and > 1.0 is slower, calibrate this to match desired
+        self.ship = Object('Ship', self.values['intFrameRate'], 0.3)
 
 
     def run_main(self):
