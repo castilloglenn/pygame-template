@@ -109,7 +109,7 @@ class Game:
             # If the user is dragging the mouse with the right mouse button
             if event.buttons[2] == 1: pass
 
-
+# test
     def key_events(self, keys):
         # If the user pressed the "del" key, (enter explanation here)
         if keys[pygame.K_DELETE]: pass
